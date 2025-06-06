@@ -24,7 +24,7 @@ CREATE TABLE Recipe(
    recipe_description VARCHAR(200) NOT NULL,
    recipe_image VARCHAR(250) NOT NULL,
    recipe_eaters INT NOT NULL,
-   recipe_category VARCHAR(30) NOT NULL,
+   recipe_category VARCHAR(30) CHECK(recipe_category IN ('entrée', 'plat', 'dessert', 'boisson', 'petit-déjeuner')),
    recipe_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    cook_id UUID NOT NULL,
    FOREIGN KEY(cook_id) REFERENCES Cook(cook_id)
@@ -38,7 +38,7 @@ CREATE TABLE Ingredient(
    ingredient_id UUID PRIMARY KEY,
    ingredient_name VARCHAR(50) NOT NULL,
    ingredient_quantity INT NOT NULL,
-   ingredient_unit VARCHAR(50) NOT NULL,
+   ingredient_unit VARCHAR(50) CHECK(ingredient_unit IN ('grammes', 'litres', 'cuillères à soupe', 'kilogrammes', 'milligrammes', 'millilitres', 'centilitres', 'cuillères à café', 'tasse', 'pincée', 'pièce')),
    ingredient_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    recipe_id UUID NOT NULL,
    FOREIGN KEY(recipe_id) REFERENCES Recipe(recipe_id)
