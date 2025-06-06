@@ -30,3 +30,17 @@ CREATE TABLE Recipe(
    FOREIGN KEY(cook_id) REFERENCES Cook(cook_id)
 );
 ```
+
+## Table Ingredient (Ingredient)
+
+```SQL
+CREATE TABLE Ingredient(
+   ingredient_id UUID PRIMARY KEY,
+   ingredient_name VARCHAR(50) NOT NULL,
+   ingredient_quantity INT NOT NULL,
+   ingredient_unit VARCHAR(50) NOT NULL,
+   ingredient_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   recipe_id UUID NOT NULL,
+   FOREIGN KEY(recipe_id) REFERENCES Recipe(recipe_id)
+);
+```
