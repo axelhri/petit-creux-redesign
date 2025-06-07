@@ -7,4 +7,8 @@ const register = (name, email, password, profilePicture) => {
   );
 };
 
-export { register };
+const login = (email) => {
+  return db.query("SELECT * FROM Cook WHERE cook_email=$1", [email]);
+};
+
+export { register, login };
