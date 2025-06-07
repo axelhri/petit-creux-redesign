@@ -20,4 +20,9 @@ const CookSchema = z.object({
     .nonempty(),
 });
 
-export { CookSchema };
+const LoginSchema = z.object({
+  cook_email: z.string().trim().email(),
+  cook_password: z.string().trim(),
+});
+
+export { CookSchema, LoginSchema };
