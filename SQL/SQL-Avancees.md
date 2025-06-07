@@ -31,3 +31,21 @@ CALL update_cook(
     'My new username'
 );
 ```
+
+## Supprimer un utilisateur (Cook)
+
+```SQL
+CREATE PROCEDURE delete_cook(
+    IN p_cook_id UUID
+)
+AS $$
+BEGIN
+    DELETE FROM Cook
+    WHERE cook_id = p_cook_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```SQL
+CALL delete_cook('123baeba-f55b-497c-8986-068d1186d166');
+```
