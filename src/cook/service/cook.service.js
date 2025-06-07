@@ -57,4 +57,18 @@ const login = async (req, res) => {
   });
 };
 
-export { register, login };
+const get = async (req, res) => {
+  const { id } = req.params;
+
+  const {
+    rows: [cook],
+  } = await CookController.getCook(id);
+
+  if (!cook) {
+    throw new NotFoundError("Utilisateur introuvable");
+  }
+
+  res.status(StatusCodes.OK).json({ cook });
+};
+
+export { register, login, get };

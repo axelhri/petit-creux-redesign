@@ -11,4 +11,8 @@ const login = (email) => {
   return db.query("SELECT * FROM Cook WHERE cook_email=$1", [email]);
 };
 
-export { register, login };
+const getCook = (id) => {
+  return db.query("SELECT * FROM Cook WHERE cook_id=$1", [id]);
+};
+
+export { register, login, getCook };

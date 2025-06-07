@@ -13,4 +13,6 @@ router.post(
 
 router.post("/login", validate({ bodySchema: LoginSchema }), CookService.login);
 
+router.get("/:id", CookService.get);
+
 export default router;
