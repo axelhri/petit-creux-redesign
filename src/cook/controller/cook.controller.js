@@ -28,4 +28,8 @@ const editCook = (id, data) => {
   ]);
 };
 
-export { register, login, getCook, editCook };
+const deleteCook = (id) => {
+  return db.query("CALL delete_cook($1)", [id]);
+};
+
+export { register, login, getCook, editCook, deleteCook };
