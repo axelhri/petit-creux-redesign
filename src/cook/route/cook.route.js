@@ -25,4 +25,6 @@ router.put(
   CookService.edit
 );
 
+router.delete("/:id", auth, CookService.remove);
+
 export default router;
