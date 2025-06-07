@@ -1,5 +1,33 @@
 # Commandes SQL avancées
 
+## Créer un utilisateur (Cook)
+
+```SQL
+CREATE PROCEDURE create_cook(
+    IN p_cook_id UUID,
+    IN p_cook_name VARCHAR,
+    IN p_cook_email VARCHAR,
+    IN p_cook_password VARCHAR,
+	IN p_cook_profile_picture VARCHAR
+)
+AS $$
+BEGIN
+    INSERT INTO Cook (cook_id, cook_name, cook_email, cook_password, cook_profile_picture)
+    VALUES (p_cook_id, p_cook_name, p_cook_email, p_cook_password, p_cook_profile_picture);
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```SQL
+CALL create_cook(
+gen_random_uuid(),
+'Freya',
+'freya@gmail.com',
+'freyaPassword',
+'https://res.cloudinary.com/dsoqmhreg/image/upload/v1729761039/recipes-images/bgln3tz9nd0esh4lrzyj.jpg'
+);
+```
+
 ## Modifier un utilisateur (Cook)
 
 ```SQL
