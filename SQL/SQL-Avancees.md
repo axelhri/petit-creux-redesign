@@ -79,3 +79,68 @@ $$ LANGUAGE plpgsql;
 ```SQL
 CALL delete_cook('123baeba-f55b-497c-8986-068d1186d166');
 ```
+
+## Trigger pour les modifications de compte utilisateur (Cook)
+
+```SQL
+CREATE FUNCTION cook_logs()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.cook_name IS DISTINCT FROM OLD.cook_name THEN
+        INSERT INTO cook_archive (cook_archive_id, cook_archive_newvalue, cook_archive_oldvalue, cook_id)
+        VALUES (
+            gen_random_uuid(),
+            NEW.cook_name,
+            OLD.cook_name,
+            NEW.cook_id
+        );
+
+    ELSIF NEW.cook_email IS DISTINCT FROM OLD.cook_email THEN
+        INSERT INTO cook_archive (cook_archive_id, cook_archive_newvalue, cook_archive_oldvalue, cook_id)
+        VALUES (
+            gen_random_uuid(),
+            NEW.cook_email,
+            OLD.cook_email,
+            NEW.cook_id
+        );
+
+    ELSIF NEW.cook_password IS DISTINCT FROM OLD.cook_password THEN
+        INSERT INTO cook_archive (cook_archive_id, cook_archive_newvalue, cook_archive_oldvalue, cook_id)
+        VALUES (
+            gen_random_uuid(),
+            NEW.cook_password,
+            OLD.cook_password,
+            NEW.cook_id
+        );
+
+	ELSIF NEW.cook_profile_picture IS DISTINCT FROM OLD.cook_profile_picture THEN
+        INSERT INTO cook_archive (cook_archive_id, cook_archive_newvalue, cook_archive_oldvalue, cook_id)
+        VALUES (
+            gen_random_uuid(),
+            NEW.cook_profile_picture,
+            OLD.cook_profile_picture,
+            NEW.cook_id
+        );
+
+	ELSIF NEW.cook_bio IS DISTINCT FROM OLD.cook_bio THEN
+        INSERT INTO cook_archive (cook_archive_id, cook_archive_newvalue, cook_archive_oldvalue, cook_id)
+        VALUES (
+            gen_random_uuid(),
+            NEW.cook_bio,
+            OLD.cook_bio,
+            NEW.cook_id
+        );
+
+    END IF;
+    RETURN NEW;
+END;
+$$ language plpgsql;
+```
+
+```SQL
+CREATE TRIGGER cook_trigger
+AFTER UPDATE ON Cook
+FOR EACH ROW
+EXECUTE FUNCTION cook_logs();
+```
