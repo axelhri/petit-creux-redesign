@@ -144,3 +144,22 @@ AFTER UPDATE ON Cook
 FOR EACH ROW
 EXECUTE FUNCTION cook_logs();
 ```
+
+## Trigger pour la colonne cook_updated_at
+
+```SQL
+CREATE OR REPLACE FUNCTION cook_update_logs()
+RETURNS TRIGGER AS $$
+BEGIN
+   NEW.cook_updated_at  = CURRENT_TIMESTAMP;
+   RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```SQL
+CREATE TRIGGER cook_update_logs
+BEFORE UPDATE ON Cook
+FOR EACH ROW
+EXECUTE FUNCTION cook_update_logs();
+```
