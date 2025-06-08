@@ -4,27 +4,29 @@
 
 ```SQL
 CREATE PROCEDURE create_cook(
-    IN p_cook_id UUID,
     IN p_cook_name VARCHAR,
     IN p_cook_email VARCHAR,
     IN p_cook_password VARCHAR,
-	IN p_cook_profile_picture VARCHAR
+    IN p_cook_profile_picture VARCHAR,
+    OUT o_cook_id UUID
 )
 AS $$
 BEGIN
     INSERT INTO Cook (cook_id, cook_name, cook_email, cook_password, cook_profile_picture)
-    VALUES (p_cook_id, p_cook_name, p_cook_email, p_cook_password, p_cook_profile_picture);
+    VALUES (gen_random_uuid(), p_cook_name, p_cook_email, p_cook_password, p_cook_profile_picture)
+    RETURNING cook_id
+    INTO o_cook_id;
 END;
 $$ LANGUAGE plpgsql;
 ```
 
 ```SQL
 CALL create_cook(
-gen_random_uuid(),
-'Freya',
-'freya@gmail.com',
+'dfgdfg',
+'fdgd@gmail.com',
 'freyaPassword',
-'https://res.cloudinary.com/dsoqmhreg/image/upload/v1729761039/recipes-images/bgln3tz9nd0esh4lrzyj.jpg'
+'https://res.cloudinary.com/dsoqmhreg/image/upload/v1729761039/recipes-images/bgln3tz9nd0esh4lrzyj.jpg',
+NULL
 );
 ```
 
