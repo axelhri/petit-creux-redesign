@@ -1,30 +1,27 @@
 import express from "express";
 const router = express.Router();
 
-import * as CookService from "../service/cook.service.js";
-import validate from "../../middlewares/validation.js";
 import CookSchema from "../schema/cook.schema.js";
 import LoginSchema from "../schema/login.schema.js";
 import UpdateSchema from "../schema/update.schema.js";
+
+import validate from "../../middlewares/validation.js";
 import auth from "../../middlewares/auth.js";
 
-router.post(
-  "/register",
-  validate({ bodySchema: CookSchema }),
-  CookService.register
-);
+import register from "../service/register.service.js";
+import login from "../service/login.service.js";
+import get from "../service/get.service.js";
+import update from "../service/update.service.js";
+import remove from "../service/delete.service.js";
 
-router.post("/login", validate({ bodySchema: LoginSchema }), CookService.login);
+router.post("/register", validate({ bodySchema: CookSchema }), register);
 
-router.get("/:id", CookService.get);
+router.post("/login", validate({ bodySchema: LoginSchema }), login);
 
-router.put(
-  "/:id",
-  validate({ bodySchema: UpdateSchema }),
-  auth,
-  CookService.edit
-);
+router.get("/:id", get);
 
-router.delete("/:id", auth, CookService.remove);
+router.put("/:id", validate({ bodySchema: UpdateSchema }), auth, update);
+
+router.delete("/:id", auth, remove);
 
 export default router;
