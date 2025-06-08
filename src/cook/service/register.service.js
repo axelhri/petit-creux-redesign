@@ -10,7 +10,7 @@ const register = async (req, res) => {
   const hashedPassword = await bcrypt.hash(cook_password, 10);
 
   const {
-    rows: [Cook],
+    rows: [cook],
   } = await CookController.register(
     cook_name,
     cook_email,
@@ -18,13 +18,13 @@ const register = async (req, res) => {
     cook_profile_picture
   );
 
-  const token = jwt.sign(Cook, process.env.JWT_SECRET, {
+  const token = jwt.sign(cook, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_LIFETIME,
   });
 
   res
     .status(StatusCodes.CREATED)
-    .json({ message: "Inscription réussie.", Cook, token });
+    .json({ message: "Inscription réussie.", cook, token });
 };
 
 export default register;

@@ -17,9 +17,9 @@ const login = async (req, res) => {
   }
 
   const cook = result.rows[0];
-  const isMatch = await bcrypt.compare(cook_password, cook.cook_password);
+  const compare = await bcrypt.compare(cook_password, cook.cook_password);
 
-  if (!isMatch) {
+  if (!compare) {
     throw new BadRequestError("Email ou mot de passe incorrect.");
   }
 
