@@ -7,4 +7,5 @@ const multerUploads = multer({ storage });
 const parser = new DatauriParser();
 const dataUri = (req) =>
   parser.format(path.extname(req.originalname).toString(), req.buffer);
+
 export { multerUploads, dataUri };
