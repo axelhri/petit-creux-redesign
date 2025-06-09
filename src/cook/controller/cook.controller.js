@@ -19,14 +19,14 @@ const getCook = (id) => {
 };
 
 const editCook = (id, data) => {
-  const { name, email, password, profilePicture, bio } = data;
+  const { name, email, password, cook_profile_picture, bio } = data;
 
   return db.query("CALL update_cook($1, $2, $3, $4, $5, $6)", [
     id,
     name,
     email,
     password,
-    profilePicture,
+    cook_profile_picture,
     bio,
   ]);
 };

@@ -20,7 +20,7 @@ const update = async (req, res) => {
     throw new UnauthorizedError("Vous ne pouvez pas modifier ce compte.");
   }
 
-  let imageUrl = cook.imageUrl;
+  let imageUrl = cook.cook_profile_picture;
 
   if (req.file) {
     const maxSize = 5 * 1024 * 1024;
@@ -51,9 +51,11 @@ const update = async (req, res) => {
     password: cook_password
       ? await bcrypt.hash(cook_password, 10)
       : cook.cook_password,
-    profile_picture: imageUrl || cook.cook_profile_picture,
     bio: cook_bio || cook.cook_bio,
+    cook_profile_picture: imageUrl,
   };
+
+  console.log(imageUrl);
 
   const updatedCook = await CookController.editCook(id, updatedData);
 
