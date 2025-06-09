@@ -7,7 +7,7 @@ CREATE PROCEDURE create_cook(
     IN p_cook_name VARCHAR,
     IN p_cook_email VARCHAR,
     IN p_cook_password VARCHAR,
-    IN p_cook_profile_picture VARCHAR,
+    IN p_cook_profile_picture TEXT,
     OUT o_cook_id UUID
 )
 AS $$
@@ -38,7 +38,7 @@ CREATE PROCEDURE update_cook(
     IN p_cook_name VARCHAR DEFAULT NULL,
     IN p_cook_email VARCHAR DEFAULT NULL,
     IN p_cook_password VARCHAR DEFAULT NULL,
-	IN p_cook_profile_picture VARCHAR DEFAULT NULL,
+	IN p_cook_profile_picture TEXT DEFAULT NULL,
 	IN p_cook_bio VARCHAR DEFAULT NULL
 )
 AS $$
@@ -70,6 +70,8 @@ CREATE PROCEDURE delete_cook(
 )
 AS $$
 BEGIN
+    DELETE FROM cook_archive
+    WHERE cook_id = p_cook_id;
     DELETE FROM Cook
     WHERE cook_id = p_cook_id;
 END;
