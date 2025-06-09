@@ -50,8 +50,8 @@ CREATE TABLE Ingredient(
 ```SQL
 CREATE TABLE cook_archive(
    cook_archive_id UUID PRIMARY KEY,
-   cook_archive_newvalue VARCHAR(50) NOT NULL,
-   cook_archive_oldvalue VARCHAR(50) NOT NULL,
+   cook_archive_newvalue VARCHAR(250) NOT NULL,
+   cook_archive_oldvalue VARCHAR(250) NOT NULL,
    cook_archive_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    cook_id UUID NOT NULL,
    FOREIGN KEY(cook_id) REFERENCES Cook(cook_id)
