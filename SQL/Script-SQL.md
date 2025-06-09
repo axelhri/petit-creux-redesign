@@ -6,7 +6,7 @@
 CREATE TABLE Cook(
    cook_id UUID PRIMARY KEY,
    cook_name VARCHAR(15) NOT NULL,
-   cook_email VARCHAR(250) NOT NULL,
+   cook_email VARCHAR(250) NOT NULL UNIQUE,
    cook_password VARCHAR(128) NOT NULL,
    cook_profile_picture TEXT NOT NULL,
    cook_bio VARCHAR(250),
