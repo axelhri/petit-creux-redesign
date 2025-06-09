@@ -17,7 +17,7 @@ const CookSchema = z.object({
   cook_profile_picture: z
     .string()
     .url({ message: "Image invalide, doit être une URL valide" })
-    .nonempty(),
+    .optional(),
 });
 
 export default CookSchema;

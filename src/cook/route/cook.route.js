@@ -17,7 +17,7 @@ import remove from "../service/delete.service.js";
 
 router.post(
   "/register",
-  multerUploads.single("image"),
+  multerUploads.single("cook_profile_picture"),
   validate({ bodySchema: CookSchema }),
   register
 );
@@ -28,7 +28,7 @@ router.get("/:id", get);
 
 router.put(
   "/:id",
-  multerUploads.single("image"),
+  multerUploads.single("cook_profile_picture"),
   validate({ bodySchema: UpdateSchema }),
   auth,
   update

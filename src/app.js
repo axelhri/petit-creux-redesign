@@ -1,13 +1,21 @@
 import express from "express";
 import dotenv from "dotenv";
 import { StatusCodes } from "http-status-codes";
-
+import cors from "cors";
 dotenv.config();
 
 const app = express();
 
 import errorHandler from "./middlewares/error-handler.js";
 import notFound from "./middlewares/not-found.js";
+
+app.use(
+  cors({
+    origin: "http://localhost:5174",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
