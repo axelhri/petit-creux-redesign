@@ -7,7 +7,7 @@ CREATE PROCEDURE create_cook(
     IN p_cook_name VARCHAR,
     IN p_cook_email VARCHAR,
     IN p_cook_password VARCHAR,
-    IN p_cook_profile_picture VARCHAR,
+    IN p_cook_profile_picture TEXT,
     OUT o_cook_id UUID
 )
 AS $$
