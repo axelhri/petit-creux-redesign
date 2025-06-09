@@ -22,7 +22,7 @@ CREATE TABLE Recipe(
    recipe_id UUID PRIMARY KEY,
    recipe_title VARCHAR(50) NOT NULL,
    recipe_description VARCHAR(200) NOT NULL,
-   recipe_image VARCHAR(250) NOT NULL,
+   recipe_image TEXT NOT NULL,
    recipe_eaters INT NOT NULL,
    recipe_category VARCHAR(30) CHECK(recipe_category IN ('entrée', 'plat', 'dessert', 'boisson', 'petit-déjeuner')),
    recipe_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
