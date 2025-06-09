@@ -6,10 +6,9 @@ import { dataUri } from "../../middlewares/multer.js";
 import cloudinary from "../../config/cloudinary.config.js";
 
 const register = async (req, res) => {
-  const { cook_name, cook_email, cook_password, cook_profile_picture } =
-    req.body;
+  const { cook_name, cook_email, cook_password } = req.body;
 
-  let defaultImage =
+  let imageUrl =
     "https://res.cloudinary.com/dsoqmhreg/image/upload/v1734000065/avatar_whstza.png";
 
   if (req.file) {
@@ -26,7 +25,7 @@ const register = async (req, res) => {
       const cloudinaryResponse = await cloudinary.uploader.upload(file, {
         folder: "user-profiles",
       });
-      defaultImage = cloudinaryResponse.secure_url;
+      imageUrl = cloudinaryResponse.secure_url;
     } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: "Erreur lors de l'upload de l'image",
@@ -43,7 +42,7 @@ const register = async (req, res) => {
     cook_name,
     cook_email,
     hashedPassword,
-    cook_profile_picture
+    imageUrl
   );
 
   const token = jwt.sign(cook, process.env.JWT_SECRET, {
