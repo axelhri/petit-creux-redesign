@@ -10,7 +10,7 @@ import create from "../service/create.service.js";
 
 router.post(
   "/",
-  multerUploads,
+  multerUploads.single("recipe_image"),
   validate({ bodySchema: RecipeSchema }),
   auth,
   create
