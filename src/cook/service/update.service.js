@@ -1,8 +1,7 @@
 import * as CookController from "../controller/cook.controller.js";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcryptjs";
-import { dataUri } from "../../middlewares/multer.js";
-import cloudinary from "../../config/cloudinary.config.js";
+import UploadImage from "../../middlewares/uploadImage.js";
 
 const update = async (req, res) => {
   const { id } = req.params;
@@ -23,24 +22,11 @@ const update = async (req, res) => {
   let imageUrl = cook.cook_profile_picture;
 
   if (req.file) {
-    const maxSize = 5 * 1024 * 1024;
-    if (req.file.size > maxSize) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        message: "L'image dépasse la taille maximale autorisée de 5 MB",
-      });
-    }
-
-    const file = dataUri(req.file).content;
-
     try {
-      const cloudinaryResponse = await cloudinary.uploader.upload(file, {
-        folder: "user-profiles",
-      });
-      imageUrl = cloudinaryResponse.secure_url;
+      imageUrl = await UploadImage(req.file, "user-profiles");
     } catch (error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: "Erreur lors de l'upload de l'image",
-        error: error.message,
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: error.message,
       });
     }
   }
@@ -54,8 +40,6 @@ const update = async (req, res) => {
     bio: cook_bio || cook.cook_bio,
     cook_profile_picture: imageUrl,
   };
-
-  console.log(imageUrl);
 
   const updatedCook = await CookController.editCook(id, updatedData);
 
