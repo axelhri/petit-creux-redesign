@@ -1,6 +1,6 @@
 import * as db from "../../config/db.config.js";
 
-const create = (name, quantity, unit, recipeId) => {
+const createIngredient = (name, quantity, unit, recipeId) => {
   return db.query("CALL create_ingredient($1, $2, $3, $4, $5)", [
     name,
     quantity,
@@ -10,4 +10,4 @@ const create = (name, quantity, unit, recipeId) => {
   ]);
 };
 
-export { create };
+export { createIngredient };
