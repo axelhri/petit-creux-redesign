@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const CookSchema = z.object({
+const RegisterSchema = z.object({
   cook_name: z
     .string()
     .trim()
@@ -20,4 +20,4 @@ const CookSchema = z.object({
     .optional(),
 });
 
-export default CookSchema;
+export default RegisterSchema;

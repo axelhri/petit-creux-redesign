@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import CookSchema from "../schema/cook.schema.js";
+import RegisterSchema from "../schema/register.schema.js";
 import LoginSchema from "../schema/login.schema.js";
 import UpdateSchema from "../schema/update.schema.js";
 
@@ -17,8 +17,8 @@ import remove from "../service/delete.service.js";
 
 router.post(
   "/register",
-  multerUploads.single("cook_profile_picture"),
-  validate({ bodySchema: CookSchema }),
+  multerUploads,
+  validate({ bodySchema: RegisterSchema }),
   register
 );
 
@@ -28,7 +28,7 @@ router.get("/:id", get);
 
 router.put(
   "/:id",
-  multerUploads.single("cook_profile_picture"),
+  multerUploads,
   validate({ bodySchema: UpdateSchema }),
   auth,
   update

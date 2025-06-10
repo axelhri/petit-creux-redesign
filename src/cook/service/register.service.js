@@ -2,8 +2,7 @@ import * as CookController from "../controller/cook.controller.js";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { dataUri } from "../../middlewares/multer.js";
-import cloudinary from "../../config/cloudinary.config.js";
+import UploadImage from "../../middlewares/uploadImage.js";
 
 const register = async (req, res) => {
   const { cook_name, cook_email, cook_password } = req.body;
@@ -12,24 +11,11 @@ const register = async (req, res) => {
     "https://res.cloudinary.com/dsoqmhreg/image/upload/v1734000065/avatar_whstza.png";
 
   if (req.file) {
-    const maxSize = 5 * 1024 * 1024;
-    if (req.file.size > maxSize) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        message: "L'image dépasse la taille maximale autorisée de 5 MB",
-      });
-    }
-
-    const file = dataUri(req.file).content;
-
     try {
-      const cloudinaryResponse = await cloudinary.uploader.upload(file, {
-        folder: "user-profiles",
-      });
-      imageUrl = cloudinaryResponse.secure_url;
+      imageUrl = await UploadImage(req.file, "user-profiles");
     } catch (error) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: "Erreur lors de l'upload de l'image",
-        error: error.message,
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: error.message,
       });
     }
   }
