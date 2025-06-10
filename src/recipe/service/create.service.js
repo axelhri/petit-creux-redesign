@@ -1,5 +1,6 @@
 import * as RecipeController from "../controller/recipe.controller.js";
 import { StatusCodes } from "http-status-codes";
+import UploadImage from "../../middlewares/uploadImage.js";
 
 const create = async (req, res) => {
   const {
@@ -9,6 +10,16 @@ const create = async (req, res) => {
     recipe_eaters,
     recipe_category,
   } = req.body;
+
+  if (req.file) {
+    try {
+      recipe_image = await UploadImage(req.file, "recipes-images");
+    } catch (error) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
 
   const {
     rows: [recipe],
