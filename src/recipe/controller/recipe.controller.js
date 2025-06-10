@@ -12,4 +12,8 @@ const create = (title, description, image, eaters, category, cookId) => {
   ]);
 };
 
-export { create };
+const getRecipe = (id) => {
+  return db.query("SELECT * FROM Recipe WHERE recipe_id=$1", [id]);
+};
+
+export { create, getRecipe };

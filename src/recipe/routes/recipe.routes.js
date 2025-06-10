@@ -7,6 +7,7 @@ import auth from "../../middlewares/auth.js";
 import { multerUploads } from "../../middlewares/multer.js";
 
 import create from "../service/create.service.js";
+import getRecipe from "../service/get.service.js";
 
 router.post(
   "/",
@@ -16,7 +17,7 @@ router.post(
   create
 );
 
-router.get("/:id");
+router.get("/:id", getRecipe);
 
 router.delete("/:id");
 
