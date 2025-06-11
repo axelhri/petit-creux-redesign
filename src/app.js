@@ -9,6 +9,8 @@ const app = express();
 import errorHandler from "./middlewares/error-handler.js";
 import notFound from "./middlewares/not-found.js";
 
+app.use(helmet());
+
 app.use(
   cors({
     origin: "http://localhost:5174",
@@ -25,6 +27,7 @@ app.get("/", (req, res) => {
 
 import cook from "./cook/route/cook.route.js";
 import recipe from "./recipe/routes/recipe.routes.js";
+import helmet from "helmet";
 
 app.use("/api/v1/cook", cook);
 app.use("/api/v1/recipe", recipe);
