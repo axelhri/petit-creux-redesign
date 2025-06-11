@@ -228,3 +228,23 @@ CALL create_ingredient(
 NULL
 );
 ```
+
+## Supprimer une recette (Recipe)
+
+```SQL
+CREATE PROCEDURE delete_recipe(
+    IN p_recipe_id UUID
+)
+AS $$
+BEGIN
+    DELETE FROM Ingredient
+    WHERE recipe_id = p_recipe_id;
+    DELETE FROM Recipe
+    WHERE recipe_id = p_recipe_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```SQL
+CALL delete_recipe('123baeba-f55b-497c-8986-068d1186d166');
+```
