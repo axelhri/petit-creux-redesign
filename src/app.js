@@ -25,11 +25,9 @@ app.get("/", (req, res) => {
 
 import cook from "./cook/route/cook.route.js";
 import recipe from "./recipe/routes/recipe.routes.js";
-import ingredient from "./ingredient/routes/ingredient.routes.js";
 
 app.use("/api/v1/cook", cook);
 app.use("/api/v1/recipe", recipe);
-app.use("/api/v1/ingredient", ingredient);
 
 app.use(notFound);
 app.use(errorHandler);
