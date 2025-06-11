@@ -165,3 +165,66 @@ BEFORE UPDATE ON Cook
 FOR EACH ROW
 EXECUTE FUNCTION cook_update_logs();
 ```
+
+## Création d'une recette
+
+```SQL
+CREATE PROCEDURE create_recipe(
+    IN recipe_title VARCHAR,
+    IN recipe_description VARCHAR,
+    IN recipe_image TEXT,
+    IN recipe_eaters INT,
+    IN recipe_category VARCHAR,
+    IN cook_id UUID,
+    OUT o_recipe_id UUID
+)
+AS $$
+BEGIN
+    INSERT INTO Recipe (recipe_id, recipe_title, recipe_description, recipe_image, recipe_eaters, recipe_category, cook_id)
+    VALUES (gen_random_uuid(), p_recipe_title, p_recipe_description, p_recipe_image, p_recipe_eaters, p_recipe_category, p_cook_id)
+    RETURNING recipe_id
+    INTO o_recipe_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```SQL
+CALL create_recipe(
+'Burger',
+'dexription',
+'https://res.cloudinary.com/dsoqmhreg/image/upload/v1729761039/recipes-images/bgln3tz9nd0esh4lrzyj.jpg',
+5,
+'plat',
+'915775ee-837a-4e9d-80dc-d7fb813b028a',
+NULL
+);
+```
+
+## Création d'un ingredient
+
+```SQL
+CREATE PROCEDURE create_ingredient(
+    IN ingredient_name VARCHAR,
+    IN ingredient_unit VARCHAR,
+    IN ingredient_quantity INT,
+    IN recipe_id UUID,
+    OUT o_ingredient_id UUID
+)
+AS $$
+BEGIN
+    INSERT INTO Ingredient (ingredient_id, ingredient_name, ingredient_unit, ingredient_quantity, recipe_id)
+    VALUES (gen_random_uuid(), p_ingredient_name, p_ingredient_unit, p_ingredient_quantity, p_recipe_id)
+    RETURNING ingredient_id
+    INTO o_ingredient_id;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```SQL
+CALL create_ingredient(
+'Tomate',
+'pièce',
+5,
+NULL
+);
+```
