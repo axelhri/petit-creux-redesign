@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+const IngredientSchema = z.object({
+  ingredient_name: z.string().trim().min(1),
+  ingredient_unit: z.string().trim().min(1),
+  ingredient_quantity: z.number().int().positive(),
+});
+
 const RecipeSchema = z.object({
   recipe_title: z
     .string()
@@ -29,6 +35,7 @@ const RecipeSchema = z.object({
     "boisson",
     "petit-déjeuner",
   ]),
+  ingredients: z.array(IngredientSchema).min(1),
 });
 
 export default RecipeSchema;

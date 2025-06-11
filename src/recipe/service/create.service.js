@@ -3,8 +3,13 @@ import { StatusCodes } from "http-status-codes";
 import UploadImage from "../../middlewares/uploadImage.js";
 
 const create = async (req, res) => {
-  const { recipe_title, recipe_description, recipe_eaters, recipe_category } =
-    req.body;
+  const {
+    recipe_title,
+    recipe_description,
+    recipe_eaters,
+    recipe_category,
+    ingredients,
+  } = req.body;
 
   let recipe_image;
 
@@ -26,7 +31,8 @@ const create = async (req, res) => {
     recipe_image,
     recipe_eaters,
     recipe_category,
-    req.cook.cook_id
+    req.cook.cook_id,
+    ingredients
   );
 
   res
