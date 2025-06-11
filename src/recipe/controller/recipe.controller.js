@@ -25,7 +25,10 @@ const create = (
 };
 
 const getRecipe = (id) => {
-  return db.query("SELECT * FROM Recipe WHERE recipe_id=$1", [id]);
+  return db.query(
+    "SELECT * FROM Recipe r JOIN Ingredient i ON i.recipe_id = r.recipe_id WHERE r.recipe_id = $1",
+    [id]
+  );
 };
 
 const deleteRecipe = (id) => {
