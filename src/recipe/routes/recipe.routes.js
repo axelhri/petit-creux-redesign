@@ -20,8 +20,6 @@ router.post(
 
 router.get("/:id", getRecipe);
 
-router.delete("/:id");
-
 router.delete("/:id", auth, remove);
 
 export default router;

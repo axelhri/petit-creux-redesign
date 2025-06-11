@@ -1,6 +1,6 @@
 import * as db from "../../config/db.config.js";
 
-const create = (
+const createRecipe = (
   title,
   description,
   image,
@@ -35,4 +35,4 @@ const deleteRecipe = (id) => {
   return db.query("CALL delete_recipe($1)", [id]);
 };
 
-export { create, getRecipe, deleteRecipe };
+export { createRecipe, getRecipe, deleteRecipe };

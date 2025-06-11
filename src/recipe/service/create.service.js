@@ -25,7 +25,7 @@ const create = async (req, res) => {
 
   const {
     rows: [recipe],
-  } = await RecipeController.create(
+  } = await RecipeController.createRecipe(
     recipe_title,
     recipe_description,
     recipe_image,
