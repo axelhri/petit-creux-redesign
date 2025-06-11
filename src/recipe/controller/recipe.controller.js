@@ -16,4 +16,8 @@ const getRecipe = (id) => {
   return db.query("SELECT * FROM Recipe WHERE recipe_id=$1", [id]);
 };
 
-export { create, getRecipe };
+const deleteRecipe = (id) => {
+  return db.query("CALL delete_recipe($1)", [id]);
+};
+
+export { create, getRecipe, deleteRecipe };
