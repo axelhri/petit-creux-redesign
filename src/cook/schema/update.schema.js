@@ -4,7 +4,7 @@ const UpdateSchema = z.object({
   cook_name: z
     .string()
     .trim()
-    .max(15, { message: "Doit avoir au maximum 15 caractères" })
+    .max(15, { message: "Le nom doit avoir au maximum 15 caractères" })
     .optional(),
   cook_email: z.string().email({ message: "Email invalide" }).optional(),
   cook_password: z.string().trim().max(128).optional(),
@@ -15,7 +15,7 @@ const UpdateSchema = z.object({
   cook_bio: z
     .string()
     .trim()
-    .max(250, { message: "Doit avoir au maximum 250 caractères" })
+    .max(250, { message: "La bio doit avoir au maximum 250 caractères" })
     .optional(),
 });
 
