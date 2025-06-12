@@ -9,19 +9,16 @@ const createRecipe = (
   cookId,
   ingredients
 ) => {
-  return db.query(
-    "CALL create_recipe_ingredient($1, $2, $3, $4, $5, $6, $7, $8)",
-    [
-      title,
-      description,
-      image,
-      eaters,
-      category,
-      cookId,
-      JSON.stringify(ingredients),
-      null,
-    ]
-  );
+  return db.query("CALL create_recipe($1, $2, $3, $4, $5, $6, $7, $8)", [
+    title,
+    description,
+    image,
+    eaters,
+    category,
+    cookId,
+    JSON.stringify(ingredients),
+    null,
+  ]);
 };
 
 const getRecipe = (id) => {
