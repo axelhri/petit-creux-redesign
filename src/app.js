@@ -4,6 +4,11 @@ import { StatusCodes } from "http-status-codes";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
+import swaggerUI from "swagger-ui-express";
+import YAML from "yamljs";
+
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 dotenv.config();
 
 const app = express();
@@ -30,6 +35,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.get("/", (req, res) => {
   res.status(StatusCodes.OK).send("<h1>Petit-Creux API</h1>");

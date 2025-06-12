@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: Petit Creux PG
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /api/v1/cook/register:
+    post:
+      summary: Cook Register
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                cook_name:
+                  type: string
+                cook_email:
+                  type: string
+                cook_password:
+                  type: string
+      responses:
+        "200":
+          description: Successful response
+  /api/v1/cook/login:
+    post:
+      summary: Cook Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cook_email:
+                  type: string
+                cook_password:
+                  type: string
+      responses:
+        "200":
+          description: Successful response
+  /api/v1/cook/{cookId}:
+    get:
+      summary: Get Cook by ID
+      parameters:
+        - name: cookId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Cook retrieved
+    put:
+      summary: Update Cook (profile picture)
+      parameters:
+        - name: cookId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                cook_profile_picture:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Cook updated
+    delete:
+      summary: Delete Cook
+      parameters:
+        - name: cookId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Cook deleted
+  /api/v1/recipe:
+    post:
+      summary: Create Recipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipe_title:
+                  type: string
+                recipe_description:
+                  type: string
+                recipe_image:
+                  type: string
+                  format: uri
+                recipe_eaters:
+                  type: integer
+                recipe_category:
+                  type: string
+                ingredients:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      ingredient_name:
+                        type: string
+                      ingredient_unit:
+                        type: string
+                      ingredient_quantity:
+                        type: number
+      responses:
+        "200":
+          description: Recipe created
+  /api/v1/recipe/{recipeId}:
+    get:
+      summary: Get Recipe by ID
+      parameters:
+        - name: recipeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recipe retrieved
+    delete:
+      summary: Delete Recipe
+      parameters:
+        - name: recipeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recipe deleted
+components: {}
