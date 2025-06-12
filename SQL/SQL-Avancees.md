@@ -200,35 +200,6 @@ NULL
 );
 ```
 
-## Création d'un ingredient
-
-```SQL
-CREATE PROCEDURE create_ingredient(
-    IN ingredient_name VARCHAR,
-    IN ingredient_unit VARCHAR,
-    IN ingredient_quantity INT,
-    IN recipe_id UUID,
-    OUT o_ingredient_id UUID
-)
-AS $$
-BEGIN
-    INSERT INTO Ingredient (ingredient_id, ingredient_name, ingredient_unit, ingredient_quantity, recipe_id)
-    VALUES (gen_random_uuid(), p_ingredient_name, p_ingredient_unit, p_ingredient_quantity, p_recipe_id)
-    RETURNING ingredient_id
-    INTO o_ingredient_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```SQL
-CALL create_ingredient(
-'Tomate',
-'pièce',
-5,
-NULL
-);
-```
-
 ## Supprimer une recette (Recipe)
 
 ```SQL
