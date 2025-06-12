@@ -170,62 +170,62 @@ EXECUTE FUNCTION cook_update_logs();
 
 ```SQL
 CREATE PROCEDURE create_recipe(
-    IN recipe_title VARCHAR,
-    IN recipe_description VARCHAR,
-    IN recipe_image TEXT,
-    IN recipe_eaters INT,
-    IN recipe_category VARCHAR,
-    IN cook_id UUID,
+    IN p_recipe_title VARCHAR,
+    IN p_recipe_description VARCHAR,
+    IN p_recipe_image TEXT,
+    IN p_recipe_eaters INT,
+    IN p_recipe_category VARCHAR,
+    IN p_cook_id UUID,
+	IN p_ingredients JSONB,
     OUT o_recipe_id UUID
 )
 AS $$
+DECLARE
+    new_recipe_id UUID;
+	ing JSONB;
 BEGIN
     INSERT INTO Recipe (recipe_id, recipe_title, recipe_description, recipe_image, recipe_eaters, recipe_category, cook_id)
     VALUES (gen_random_uuid(), p_recipe_title, p_recipe_description, p_recipe_image, p_recipe_eaters, p_recipe_category, p_cook_id)
-    RETURNING recipe_id
-    INTO o_recipe_id;
+    RETURNING recipe_id INTO new_recipe_id;
+
+  FOR ing IN SELECT * FROM jsonb_array_elements(p_ingredients)
+    LOOP
+        INSERT INTO Ingredient (ingredient_id, ingredient_name, ingredient_unit, ingredient_quantity, recipe_id)
+        VALUES (gen_random_uuid(), ing->>'ingredient_name', ing->>'ingredient_unit', (ing->>'ingredient_quantity')::INT, new_recipe_id );
+    END LOOP;
+
+    o_recipe_id := new_recipe_id;
 END;
-$$ LANGUAGE plpgsql;
+$$
+LANGUAGE plpgsql;
 ```
 
 ```SQL
 CALL create_recipe(
-'Burger',
-'dexription',
-'https://res.cloudinary.com/dsoqmhreg/image/upload/v1729761039/recipes-images/bgln3tz9nd0esh4lrzyj.jpg',
-5,
-'plat',
-'915775ee-837a-4e9d-80dc-d7fb813b028a',
-NULL
-);
-```
-
-## Création d'un ingredient
-
-```SQL
-CREATE PROCEDURE create_ingredient(
-    IN ingredient_name VARCHAR,
-    IN ingredient_unit VARCHAR,
-    IN ingredient_quantity INT,
-    IN recipe_id UUID,
-    OUT o_ingredient_id UUID
-)
-AS $$
-BEGIN
-    INSERT INTO Ingredient (ingredient_id, ingredient_name, ingredient_unit, ingredient_quantity, recipe_id)
-    VALUES (gen_random_uuid(), p_ingredient_name, p_ingredient_unit, p_ingredient_quantity, p_recipe_id)
-    RETURNING ingredient_id
-    INTO o_ingredient_id;
-END;
-$$ LANGUAGE plpgsql;
-```
-
-```SQL
-CALL create_ingredient(
-'Tomate',
-'pièce',
-5,
-NULL
+    'Tarte aux pommes',
+    'Délicieuse tarte aux pommes maison',
+    'https://example.com/image.jpg',
+    4,
+    'plat',
+    '915775ee-837a-4e9d-80dc-d7fb813b028a',
+    '[
+        {
+            "ingredient_name": "Pommes",
+            "ingredient_unit": "pièce",
+            "ingredient_quantity": 4
+        },
+        {
+            "ingredient_name": "Sucre",
+            "ingredient_unit": "grammes",
+            "ingredient_quantity": 100
+        },
+        {
+            "ingredient_name": "Pâte brisée",
+            "ingredient_unit": "pièce",
+            "ingredient_quantity": 1
+        }
+    ]'::jsonb,
+    NULL
 );
 ```
 
