@@ -12,6 +12,9 @@ Dictionaire de données pour la base de données **Petit Creux** :
 |                  | cook_bio              | Bio de l'utilisateur                     | VARCHAR                   | NULL            | C'est bien ce site                                           |
 |                  | cook_created_at       | Date de création de l'utilisateur        | DEFAULT CURRENT_TIMESTAMP | NOT NULL        | 2025-04-28 16:18:43.643163                                   |
 |                  | cook_updated_at       | Date de modification de l'utilisateur    | DEFAULT CURRENT_TIMESTAMP | NULL            | 2025-04-28 16:18:43.643163                                   |
+
+| Table            | Colonne               | Description                              | Type                      | Contrainte      | Exemple                                                      |
+| ---------------- | --------------------- | ---------------------------------------- | ------------------------- | --------------- | ------------------------------------------------------------ |
 | **Recipe**       | recipe_id             | Numéro d'identification de la recette    | UUID                      | NOT NULL UNIQUE | b6276aa3-02f1-4cb0-a33c-9e61f14a369d                         |
 |                  | recipe_title          | Titre de la recette                      | VARCHAR                   | NOT NULL        | Lasagne maison                                               |
 |                  | recipe_description    | Description de la recette                | VARCHAR                   | NOT NULL        | Lasagne maison faites avec passion                           |
@@ -19,11 +22,17 @@ Dictionaire de données pour la base de données **Petit Creux** :
 |                  | recipe_eaters         | Nombre de personnes                      | INT                       | NOT NULL        | 5                                                            |
 |                  | recipe_category       | Catégorie de la recette                  | ENUM                      | NOT NULL        | Plat                                                         |
 |                  | recipe_created_at     | Date de création de la recette           | DEFAULT CURRENT_TIMESTAMP | NOT NULL        | 2025-04-28 16:18:43.643163                                   |
+
+| Table            | Colonne               | Description                              | Type                      | Contrainte      | Exemple                                                      |
+| ---------------- | --------------------- | ---------------------------------------- | ------------------------- | --------------- | ------------------------------------------------------------ |
 | **Ingredient**   | ingredient_id         | Numéro d'identification de l'ingredient  | UUID                      | NOT NULL UNIQUE | b6276aa3-02f1-4cb0-a33c-9e61f14a369d                         |
 |                  | ingredient_name       | Nom de l'ingredient                      | VARCHAR                   | NOT NULL        | Huile d'olive                                                |
 |                  | ingredient_quantity   | Quantité de l'ingredient                 | INT                       | NOT NULL        | 50                                                           |
 |                  | ingredient_unit       | Unité de l'ingredient                    | ENUM                      | NOT NULL        | Centillitre                                                  |
 |                  | ingredient_created_at | Date de création de l'ingredient         | DEFAULT CURRENT_TIMESTAMP | NOT NULL        | 2025-04-28 16:18:43.643163                                   |
+
+| Table            | Colonne               | Description                              | Type                      | Contrainte      | Exemple                                                      |
+| ---------------- | --------------------- | ---------------------------------------- | ------------------------- | --------------- | ------------------------------------------------------------ |
 | **cook_archive** | cook_archive_id       | Numéro d'identification de l'archive     | UUID                      | NOT NULL UNIQUE | b6276aa3-02f1-4cb0-a33c-9e61f14a369d                         |
 |                  | cook_archive_newvalue | Nouvelle valeur                          | VARCHAR                   | NOT NULL        | Axel                                                         |
 |                  | cook_archive_oldvalue | Ancienne valeur                          | VARCHAR                   | NOT NULL        | Axel hr                                                      |
