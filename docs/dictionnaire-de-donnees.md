@@ -7,7 +7,7 @@ Dictionaire de données pour la base de données **Petit Creux** :
 | **Cook**         | cook_id               | Numéro d'identification de l'utilisateur | UUID                      | NOT NULL UNIQUE | b6276aa3-02f1-4cb0-a33c-9e61f14a369d                         |
 |                  | cook_name             | Nom de l'utilisateur                     | VARCHAR                   | NOT NULL        | Axel-hr                                                      |
 |                  | cook_email            | Email de l'utilisateur                   | VARCHAR                   | NOT NULL UNIQUE | axel@gmail.com                                               |
-|                  | cook_password         | Mot de passe de l'utilisateur            | VARCHAR                   | NOT NULL        | $2a$10$S4rlLey3Vc2XsUoXtO6Pleg.pk7y6XZ9IjDISraSvf8FK/UttHkeG |
+|                  | cook_password         | Mot de passe de l'utilisateur            | VARCHAR                   | NOT NULL        | $2a$10$S4rlLey3Vc2XsUoXtO6Pleg.pk7y6XZ9Ij...                 |
 |                  | cook_profile_picture  | Image de profil de l'utilisateur         | TEXT                      | NULL            | https://res.cloudinary.com...                                |
 |                  | cook_bio              | Bio de l'utilisateur                     | VARCHAR                   | NULL            | C'est bien ce site                                           |
 |                  | cook_created_at       | Date de création de l'utilisateur        | DEFAULT CURRENT_TIMESTAMP | NOT NULL        | 2025-04-28 16:18:43.643163                                   |
