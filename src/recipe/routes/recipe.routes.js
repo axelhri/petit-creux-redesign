@@ -10,6 +10,7 @@ import create from "../service/create.service.js";
 import getRecipe from "../service/get.service.js";
 import remove from "../service/delete.service.js";
 import bookmark from "../service/bookmark.service.js";
+import calculate from "../service/calculate.service.js";
 
 router.post(
   "/",
@@ -20,6 +21,8 @@ router.post(
 );
 
 router.post("/:id", auth, bookmark);
+
+router.get("/:id/calculate", calculate);
 
 router.get("/:id", getRecipe);
 

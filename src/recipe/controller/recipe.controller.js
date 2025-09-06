@@ -42,4 +42,29 @@ const bookmark = (cookId, recipeId) => {
   );
 };
 
-export { createRecipe, getRecipe, deleteRecipe, bookmark };
+const calculateIngredients = (recipeId, servings) => {
+  return db.query(
+    `
+        SELECT
+            recipe.recipe_title,
+            recipe.recipe_eaters,
+            ingredient.ingredient_name,
+            ingredient.ingredient_unit,
+            ingredient.ingredient_quantity
+        FROM
+            recipe
+        JOIN
+            ingredient ON recipe.recipe_id = ingredient.recipe_id
+        WHERE recipe.recipe_id = $1;
+    `,
+    [recipeId]
+  );
+};
+
+export {
+  createRecipe,
+  getRecipe,
+  deleteRecipe,
+  bookmark,
+  calculateIngredients,
+};
