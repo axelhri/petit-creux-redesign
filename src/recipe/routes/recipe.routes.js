@@ -9,6 +9,7 @@ import { multerUploads } from "../../middlewares/multer.js";
 import create from "../service/create.service.js";
 import getRecipe from "../service/get.service.js";
 import remove from "../service/delete.service.js";
+import bookmark from "../service/bookmark.service.js";
 
 router.post(
   "/",
@@ -17,6 +18,8 @@ router.post(
   auth,
   create
 );
+
+router.post("/:id", auth, bookmark);
 
 router.get("/:id", getRecipe);
 

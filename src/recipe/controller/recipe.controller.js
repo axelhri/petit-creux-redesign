@@ -35,4 +35,11 @@ const deleteRecipe = (id) => {
   return db.query("CALL delete_recipe($1)", [id]);
 };
 
-export { createRecipe, getRecipe, deleteRecipe };
+const bookmark = (cookId, recipeId) => {
+  return db.query(
+    "INSERT INTO Bookmarks (cook_id, recipe_id) VALUES ($1, $2) RETURNING *",
+    [cookId, recipeId]
+  );
+};
+
+export { createRecipe, getRecipe, deleteRecipe, bookmark };

@@ -57,3 +57,15 @@ CREATE TABLE cook_archive(
    FOREIGN KEY(cook_id) REFERENCES Cook(cook_id)
 );
 ```
+
+## Table des favoris (Bokkmarks)
+
+```SQL
+CREATE TABLE Bookmarks(
+   cook_id UUID,
+   recipe_id UUID,
+   PRIMARY KEY(cook_id, recipe_id),
+   FOREIGN KEY(cook_id) REFERENCES Cook(cook_id),
+   FOREIGN KEY(recipe_id) REFERENCES Recipe(recipe_id)
+);
+```
